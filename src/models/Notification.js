@@ -7,13 +7,22 @@ const notiSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        type: {
+            type: String,
+            required: true
+        },
         toEmail: {
+            required: true,
+            type: String,
+        },
+        toNumber: {
             required: true,
             type: String,
         },
         from: {
             type: String,
             required: true,
+            default:'DG ADMIN'
         },
         seen: {
             type: Boolean,

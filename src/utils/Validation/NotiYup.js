@@ -23,6 +23,15 @@ class NotificationYup {
     dltNotification = yup.object({
         nid: yup.string(),
     })
+    sendSms =  yup.object({
+        mobile: yup.string().required(),
+        message:yup.string().required()
+    })
+    sendEmail =  yup.object({
+        to: yup.string().required(),
+        text : yup.string().required(),
+        subject:yup.string().required()
+    })
 }
 
 export default NotificationYup = new NotificationYup();

@@ -1,0 +1,46 @@
+# Node modules and dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+logs/
+*.log
+*.gz
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Build artifacts
+dist/
+build/
+.cache/
+
+# Local environment files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Coverage and test results
+coverage/
+test-results/
+jest-cache/
+jest-stare/
+
+# Debugging files
+*.pid
+*.seed
+*.tgz
+*.tar.gz
+
+# Docker-related files
+docker-compose.override.yml
+Dockerfile.dev

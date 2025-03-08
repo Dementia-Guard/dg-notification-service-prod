@@ -21,4 +21,13 @@ router.put('/update', validateSchema(NotiYup.updateNotificationSchema) ,Notifica
 // Route to handle deleting a notification by ID
 router.delete('/delete', validateSchema(NotiYup.dltNotification) ,NotificationController.deleteNotification);
 
+router.post("/sendsms", validateSchema(NotiYup.sendSms) ,NotificationController.sendSMS);
+router.post("/sendemail", validateSchema(NotiYup.sendEmail) ,NotificationController.sendEmail);
+
+// Route to send indoor alerting notification
+// Route to send outdoor alerting notification
+// Route to send fall detection alerting notification
+// Route to send sos alerting notification
+// Route to send high body temperature alerting notification
+
 export default router;

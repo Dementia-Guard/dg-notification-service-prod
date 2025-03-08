@@ -1,5 +1,8 @@
+import axios from "axios";
 import response from "../Utils/ResponseHandler/ResponseHandler.js";
 import ResTypes from "../Utils/ResponseHandler/ResTypes.js";
+import SmsHandler from "../helpers/SmsHandler.js";
+import MailHandler from "../helpers/MailHandler.js";
 
 
 class NotificationController {
@@ -38,9 +41,9 @@ class NotificationController {
     }
     //get notification for user
     getAllNotificationOfUser = async (req, res) => {
-        const { id,email } = req.body;
+        const { id, email } = req.body;
         try {
-            const notification = await Notification.find({ toEmail:email })
+            const notification = await Notification.find({ toEmail: email })
             if (!notification) return response(res, 404, ResTypes.errors.no_notification)
             return response(res, 200, { ...ResTypes.successMessages.success, notification });
         } catch (error) {
@@ -62,7 +65,7 @@ class NotificationController {
     deleteNotification = async (req, res) => {
         const { nid } = req.body;
         try {
-            const deletedNotification = await Notification.findOneAndDelete({ _id:nid });
+            const deletedNotification = await Notification.findOneAndDelete({ _id: nid });
             if (!deletedNotification) return response(res, 404, ResTypes.errors.not_found);
             return response(res, 200, ResTypes.successMessages.success);
         } catch (error) {
@@ -74,7 +77,7 @@ class NotificationController {
     updateNotification = async (req, res) => {
         const { id, seen } = req.body;
         try {
-            const notificationExist = await Notification.findOne({ _id:id });
+            const notificationExist = await Notification.findOne({ _id: id });
             if (!notificationExist) return response(res, 404, ResTypes.errors.not_found);
 
             const result = await Notification.updateOne(
@@ -88,6 +91,32 @@ class NotificationController {
             return response(res, 500, error);
         }
     }
+    sendSMS = async (req, res) => {
+        try {
+            const { mobile, message } = req.body;
+
+            if (!mobile || !message) {
+                return response(res, 400, { error: "Mobile and message are required." });
+            }
+
+            const smsResponse = await SmsHandler.sendSMS(mobile, message);
+            return response(res, 200, smsResponse.data);
+        } catch (error) {
+            console.error("SMS Error:", error);
+            return response(res, 500, error);
+        }
+    };
+    sendEmail = async (req, res) => {
+        try {
+            const { to, subject, text } = req.body;
+
+            const mailResponse = await MailHandler.sendEmail(to, subject, text);
+            return response(res, 200, mailResponse);
+        } catch (error) {
+            console.error("Mail Error:", error);
+            return response(res, 500, error);
+        }
+    };
 
 }
 
