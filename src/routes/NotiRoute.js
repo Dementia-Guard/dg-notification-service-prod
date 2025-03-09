@@ -23,7 +23,7 @@ router.delete('/delete', validateSchema(NotiYup.dltNotification) ,NotificationCo
 
 router.post("/sendsms", validateSchema(NotiYup.sendSms) ,NotificationController.sendSMS);
 router.post("/sendemail", validateSchema(NotiYup.sendEmail) ,NotificationController.sendEmail);
-
+router.post("/sendalert", NotificationController.sendAlert);
 // Route to send indoor alerting notification
 // Route to send outdoor alerting notification
 // Route to send fall detection alerting notification

@@ -1,4 +1,3 @@
-import axios from "axios";
 import response from "../Utils/ResponseHandler/ResponseHandler.js";
 import ResTypes from "../Utils/ResponseHandler/ResTypes.js";
 import SmsHandler from "../helpers/SmsHandler.js";
@@ -117,7 +116,26 @@ class NotificationController {
             return response(res, 500, error);
         }
     };
+    sendAlert = async (req, res) => {
+        try {
+            const { mobile, message, email, subject, text } = req.body;
 
+            if (!mobile || !message || !email || !subject || !text) {
+                return response(res, 400, { error: "All fields (mobile, message, email, subject, text) are required." });
+            }
+
+            // Send SMS and Email concurrently
+            const [smsResponse, mailResponse] = await Promise.all([
+                SmsHandler.sendSMS(mobile, message),
+                MailHandler.sendEmail(email, subject, text),
+            ]);
+
+            return response(res, 200, { sms: smsResponse, email: mailResponse });
+        } catch (error) {
+            console.error("Alert Error:", error);
+            return response(res, 500, { error: "Failed to send alert." });
+        }
+    }
 }
 
 export default NotificationController = new NotificationController()
