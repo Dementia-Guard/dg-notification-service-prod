@@ -50,11 +50,16 @@ jobs:
             --image ${{ env.GAR_REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO_NAME }}/${{ env.GAR_IMAGE_NAME }}:${{ github.sha }} \
             --platform managed \
             --region ${{ env.GCR_REGION }} \
-            --port ${{ secrets.SERVER_PORT }} \
+            --port ${{ secrets.NOTI_SERVER_PORT }} \
             --allow-unauthenticated \
-            --set-env-vars SERVER_PORT=${{ secrets.SERVER_PORT }} \
+            --set-env-vars NOTI_SERVER_PORT=${{ secrets.NOTI_SERVER_PORT }} \
             --set-env-vars SMS_AUTH_TOKEN=${{ secrets.SMS_AUTH_TOKEN }} \
-            --set-env-vars SMS_API_URL=${{ secrets.SMS_API_URL }}
+            --set-env-vars SMS_API_URL=${{ secrets.SMS_API_URL }} \
+            --set-env-vars SENDER_ID=${{ secrets.SENDER_ID }} \
+            --set-env-vars MAILGUN_KEY=${{ secrets.MAILGUN_KEY }} \
+            --set-env-vars MAILGUN_USERNAME=${{ secrets.MAILGUN_USERNAME }} \
+            --set-env-vars MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }} \
+            --set-env-vars MONGO_URL=${{ secrets.MONGO_URL }}
 
       - name: "Show output"
         run: |2-

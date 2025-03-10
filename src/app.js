@@ -5,7 +5,7 @@ dotenv.config();
 
 import db from "./config/DbCon.js";
 
-const SERVER_PORT = process.env.SERVER_PORT || 9879
+const NOTI_SERVER_PORT = process.env.NOTI_SERVER_PORT
 
 app.use(Express.json());
 
@@ -22,6 +22,6 @@ app.use('/api/v1/notification',NotiRoute)
 //db connction
 db();
 
-app.listen(SERVER_PORT, () => {
-    console.log(`Server is listening on ${SERVER_PORT}`);
+app.listen(NOTI_SERVER_PORT, () => {
+    console.log(`Server is listening on ${NOTI_SERVER_PORT}`);
 })
