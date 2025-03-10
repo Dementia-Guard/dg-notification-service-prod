@@ -1,7 +1,7 @@
 import express from 'express';
 import NotificationController from '../controllers/NotiController.js';
 import validateSchema from '../middleware/ValidateSchema.js';
-import NotiYup from '../Utils/Validation/NotiYup.js';
+import NotiYup from '../utils/Validation/NotiYup.js';
 
 const router = express.Router();
 

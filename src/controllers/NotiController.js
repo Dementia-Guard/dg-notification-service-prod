@@ -1,5 +1,5 @@
-import response from "../Utils/ResponseHandler/ResponseHandler.js";
-import ResTypes from "../Utils/ResponseHandler/ResTypes.js";
+import response from "../utils/ResponseHandler/ResponseHandler.js";
+import ResTypes from "../utils/ResponseHandler/ResTypes.js";
 import SmsHandler from "../helpers/SmsHandler.js";
 import MailHandler from "../helpers/MailHandler.js";
 

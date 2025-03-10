@@ -1,4 +1,4 @@
-import response from "../Utils/ResponseHandler/ResponseHandler.js";
+import response from "../utils/ResponseHandler/ResponseHandler.js";
 
 
 function validateScehma(schema){
