@@ -54,12 +54,7 @@ jobs:
             --allow-unauthenticated \
             --set-env-vars SERVER_PORT=${{ secrets.SERVER_PORT }} \
             --set-env-vars SMS_AUTH_TOKEN=${{ secrets.SMS_AUTH_TOKEN }} \
-            --set-env-vars SMS_API_URL=${{ secrets.SMS_API_URL }} \
-            --set-env-vars SENDER_ID=${{ secrets.SENDER_ID }} \
-            --set-env-vars MAILGUN_KEY=${{ secrets.MAILGUN_KEY }} \
-            --set-env-vars MAILGUN_USERNAME=${{ secrets.MAILGUN_USERNAME }} \
-            --set-env-vars MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }} \
-            --set-env-vars MONGO_URL=${{ secrets.MONGO_URL }}
+            --set-env-vars SMS_API_URL=${{ secrets.SMS_API_URL }}
 
       - name: "Show output"
         run: |2-
