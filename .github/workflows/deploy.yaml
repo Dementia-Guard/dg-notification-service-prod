@@ -61,6 +61,7 @@ jobs:
             --set-env-vars MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }} \
             --set-env-vars MONGO_URL=${{ secrets.MONGO_URL }}
 
-      - name: "Show output"
-        run: |2-
-          echo ${{ steps.deploy.outputs.url }}
+      - name: "Show Cloud Run URL"
+        run: |
+          echo "Cloud Run URL:"
+          gcloud run services describe ${{ env.GCR_SERVICE }} --platform managed --region ${{ env.GCR_REGION }} --format='value(status.url)'
