@@ -11,7 +11,7 @@ app.use(Express.json());
 
 // import routes
 import NotiRoute from "./routes/NotiRoute.js"
-import response from "./Utils/ResponseHandler/ResponseHandler.js";
+import response from "./utils/ResponseHandler/ResponseHandler.js"
 
 // routes definition starts here
 app.get("/", (req, res) => {
