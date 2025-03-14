@@ -191,7 +191,7 @@ class NotificationController {
                 .sort({ created_at: -1 });
 
             if (!lastNotification) {
-                return response(res, 404, { error: "No notifications found for this patient" });
+                return response(res, 200, { error: "No notifications found for this patient" });
             }
 
             // Send the response with the notification data
