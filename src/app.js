@@ -13,7 +13,6 @@ app.use(Express.json());
 import NotiRoute from "./routes/NotiRoute.js"
 import response from "./utils/ResponseHandler/ResponseHandler.js"
 
-// routes definition starts here
 app.get("/", (req, res) => {
     return response(res,200,"Server Online")
 })
