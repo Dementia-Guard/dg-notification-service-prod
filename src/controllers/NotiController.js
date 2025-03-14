@@ -119,8 +119,8 @@ class NotificationController {
     };
     sendAlert = async (req, res) => {
         try {
-            const { mobile, message, email, subject, text, uid,type } = req.body;
-            console.log(mobile, message, email, subject, text, uid,type)
+            const { mobile, message, email, subject, text, uid, type } = req.body;
+            console.log(mobile, message, email, subject, text, uid, type)
             if (!mobile || !message || !email || !subject || !text || !uid || !type) {
                 return response(res, 400, { error: "All fields (mobile, message, email, subject, text) are required." });
             }
@@ -151,12 +151,43 @@ class NotificationController {
         }
     }
     // Method to get the last notification by patientId and return via API
+    // getLastNotificationByPatientId = async (req, res) => {
+    //     const { patientId } = req.params;
+
+    //     try {
+    //         // Fetch the latest notification for the given patientId
+    //         const lastNotification = await Notification.findOne({ uid: patientId })
+    //             .sort({ created_at: -1 });
+
+    //         if (!lastNotification) {
+    //             return response(res, 404, { error: "No notifications found for this patient" });
+    //         }
+
+    //         // Send the response with the notification data
+    //         return response(res, 200, {
+    //             ...ResTypes.successMessages.success,
+    //             notification: lastNotification
+    //         });
+    //     } catch (error) {
+    //         console.error("Error fetching last notification:", error);
+    //         return response(res, 500, { error: "Failed to fetch last notification" });
+    //     }
+    // };
     getLastNotificationByPatientId = async (req, res) => {
         const { patientId } = req.params;
+        const { type } = req.query;  // Accept the notification type as a query parameter
 
         try {
-            // Fetch the latest notification for the given patientId
-            const lastNotification = await Notification.findOne({ uid: patientId })
+            // Build the query
+            const query = { uid: patientId };
+
+            // If a notification type is provided, add it to the query
+            if (type) {
+                query.type = type;
+            }
+
+            // Fetch the latest notification for the given patientId and type (if provided)
+            const lastNotification = await Notification.findOne(query)
                 .sort({ created_at: -1 });
 
             if (!lastNotification) {
@@ -173,7 +204,6 @@ class NotificationController {
             return response(res, 500, { error: "Failed to fetch last notification" });
         }
     };
-
 }
 
 export default NotificationController = new NotificationController()
