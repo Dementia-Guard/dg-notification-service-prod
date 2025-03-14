@@ -2,6 +2,7 @@ import response from "../utils/ResponseHandler/ResponseHandler.js";
 import ResTypes from "../utils/ResponseHandler/ResTypes.js";
 import SmsHandler from "../helpers/SmsHandler.js";
 import MailHandler from "../helpers/MailHandler.js";
+import Notification from "../models/Notification.js";
 
 
 class NotificationController {
@@ -118,9 +119,9 @@ class NotificationController {
     };
     sendAlert = async (req, res) => {
         try {
-            const { mobile, message, email, subject, text } = req.body;
+            const { mobile, message, email, subject, text, uid } = req.body;
 
-            if (!mobile || !message || !email || !subject || !text) {
+            if (!mobile || !message || !email || !subject || !text || !uid) {
                 return response(res, 400, { error: "All fields (mobile, message, email, subject, text) are required." });
             }
 
@@ -129,6 +130,19 @@ class NotificationController {
                 SmsHandler.sendSMS(mobile, message),
                 MailHandler.sendEmail(email, subject, text),
             ]);
+
+            // Save alert to MongoDB
+            const newNotification = new Notification({
+                description: message,
+                uid,  // Modify as needed
+                type: "ALERT",
+                toEmail: email,
+                toNumber: mobile,
+                from: "DG ADMIN",
+                seen: false
+            });
+
+            await newNotification.save();
 
             return response(res, 200, { sms: smsResponse, email: mailResponse });
         } catch (error) {

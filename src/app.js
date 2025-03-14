@@ -17,7 +17,7 @@ import response from "./utils/ResponseHandler/ResponseHandler.js"
 app.get("/", (req, res) => {
     return response(res,200,"Server Online")
 })
-app.use('/api/v1/notification',NotiRoute)
+app.use('/route',NotiRoute)
 
 //db connction
 db();
