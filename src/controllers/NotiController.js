@@ -119,9 +119,9 @@ class NotificationController {
     };
     sendAlert = async (req, res) => {
         try {
-            const { mobile, message, email, subject, text, uid } = req.body;
-            console.log(mobile, message, email, subject, text, uid)
-            if (!mobile || !message || !email || !subject || !text || !uid) {
+            const { mobile, message, email, subject, text, uid,type } = req.body;
+            console.log(mobile, message, email, subject, text, uid,type)
+            if (!mobile || !message || !email || !subject || !text || !uid || !type) {
                 return response(res, 400, { error: "All fields (mobile, message, email, subject, text) are required." });
             }
 
@@ -135,7 +135,7 @@ class NotificationController {
             const newNotification = new Notification({
                 description: message,
                 uid,  // Modify as needed
-                type: "ALERT",
+                type,
                 toEmail: email,
                 toNumber: mobile,
                 from: "DG ADMIN",
