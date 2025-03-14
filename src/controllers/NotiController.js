@@ -127,7 +127,7 @@ class NotificationController {
 
             // Send SMS and Email concurrently
             const [smsResponse, mailResponse] = await Promise.all([
-                SmsHandler.sendSMS(mobile, message),
+                // SmsHandler.sendSMS(mobile, message),
                 MailHandler.sendEmail(email, subject, text),
             ]);
 
