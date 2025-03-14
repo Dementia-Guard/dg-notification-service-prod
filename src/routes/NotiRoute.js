@@ -25,6 +25,9 @@ router.post("/sendsms", validateSchema(NotiYup.sendSms) ,NotificationController.
 router.post("/sendemail", validateSchema(NotiYup.sendEmail) ,NotificationController.sendEmail);
 router.post("/sendalert", NotificationController.sendAlert);
 
+router.get('/last/:patientId', NotificationController.getLastNotificationByPatientId);
+
+
 // Route to send indoor alerting notification
 // Route to send outdoor alerting notification
 // Route to send fall detection alerting notification

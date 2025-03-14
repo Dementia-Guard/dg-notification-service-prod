@@ -127,7 +127,7 @@ class NotificationController {
 
             // Send SMS and Email concurrently
             const [smsResponse, mailResponse] = await Promise.all([
-                // SmsHandler.sendSMS(mobile, message),
+                SmsHandler.sendSMS(mobile, message),
                 MailHandler.sendEmail(email, subject, text),
             ]);
 
@@ -150,6 +150,30 @@ class NotificationController {
             return response(res, 500, { error: "Failed to send alert." });
         }
     }
+    // Method to get the last notification by patientId and return via API
+    getLastNotificationByPatientId = async (req, res) => {
+        const { patientId } = req.params;
+
+        try {
+            // Fetch the latest notification for the given patientId
+            const lastNotification = await Notification.findOne({ uid: patientId })
+                .sort({ created_at: -1 });
+
+            if (!lastNotification) {
+                return response(res, 404, { error: "No notifications found for this patient" });
+            }
+
+            // Send the response with the notification data
+            return response(res, 200, {
+                ...ResTypes.successMessages.success,
+                notification: lastNotification
+            });
+        } catch (error) {
+            console.error("Error fetching last notification:", error);
+            return response(res, 500, { error: "Failed to fetch last notification" });
+        }
+    };
+
 }
 
 export default NotificationController = new NotificationController()
